@@ -1,0 +1,43 @@
+sequenceDiagram
+    participant User
+    participant Movistar
+    participant PortalManager
+    participant Atlas
+    participant Vendetta
+    participant SBS
+    participant Apolo
+    participant eClub
+
+    User->>eClub: 1. Billing request through web form
+    eClub->>Apolo: 2. Send pin MT
+    Apolo->>Atlas: 3. sendMessage(pin)
+    Atlas->>Movistar: 4.
+    Movistar-->>Atlas: 
+    Atlas-->>Apolo: 
+    Apolo-->>eClub: 
+    Movistar->>User: 5. Pin MT
+
+    User->>Movistar: 6. Pin confirm MO
+    Movistar->>Vendetta: 7. Pin MO
+    Vendetta-->>Movistar: 
+    Vendetta->>Apolo: 8. Pin MO
+    Apolo-->>Vendetta: 
+    Apolo->>eClub: 9. Pin MO
+    eClub-->>Apolo: 
+
+    eClub->>Apolo: 10. bill()
+    Apolo->>SBS: 11. bill()
+    SBS->>PortalManager: 12. valsrv()
+    PortalManager->>Movistar: 13.
+    Movistar-->>PortalManager: 
+    PortalManager-->>SBS: 
+    SBS-->>Apolo: 
+    Apolo-->>eClub: response
+
+    eClub->>Apolo: 14. Confirmation MT
+    Apolo->>Atlas: 15. sendMessage(confirmation)
+    Atlas->>Movistar: 16.
+    Movistar-->>Atlas: 
+    Atlas-->>Apolo: 
+    Apolo-->>eClub: 
+    Movistar->>User: 17. Confirmation MT
