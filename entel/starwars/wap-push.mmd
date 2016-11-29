@@ -1,0 +1,24 @@
+sequenceDiagram
+    participant AtlasAPI
+    participant Dwarf
+    participant AtlasSender
+    participant ActionListener
+    participant Entel_WAPPUSH
+    participant Entel_Notification
+    participant Vendetta
+    participant SBSConsumer
+    participant ?
+
+    ActionListener->>AtlasAPI: 1. Send MT for subscription/renovation event.
+    AtlasAPI-->>ActionListener: Ok.
+    AtlasAPI->>Dwarf: 2. Dequeues message to send.
+    Dwarf->>AtlasSender: 3. Routes message into sender implementation due to filters.
+    AtlasSender->>Entel_WAPPUSH: 4. Sends MT to carrier's API.
+    Entel_WAPPUSH-->>AtlasSender: Ok.
+    AtlasSender->>AtlasSender: 5. Stores partial MT sending result.
+    Entel_Notification->>Vendetta: 6. Delivers async MT result.
+    Vendetta-->>Entel_Notification: Ok.
+    Vendetta->>SBSConsumer: 7. Parses and enqueues a new DR message.
+    SBSConsumer->>SBSConsumer: 8. Stores DR message.
+    Vendetta->>?: 9. Fires an event to consolidate MT message status.
+    Note right of Vendetta: This is an unknown. Must talk to Platform team.
