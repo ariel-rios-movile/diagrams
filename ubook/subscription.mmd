@@ -1,0 +1,12 @@
+sequenceDiagram
+    participant User
+    participant Movile
+    participant Ubook
+
+    User->>Movile: 1. User fires subscription event
+    Movile-->>User: 2. Welcome message response
+    Movile->>Ubook: 3. Notifies subscription event (id, carrier, phone)
+    Ubook-->>Movile: 4. OK
+    Ubook->>Movile: 5. Sends authentication credentials (carrier, phone, user, pass)
+    Movile-->>Ubook: 6. OK
+    Movile->>User: 7. Sends authentication credentials (user, pass) 

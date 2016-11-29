@@ -1,0 +1,10 @@
+sequenceDiagram
+    participant User
+    participant Movile
+    participant Ubook
+
+    User->>Movile: 1. User fires cancellation event
+    Movile->>Movile: 2. Changes subscription status to cancelled
+    Movile-->>User: 3. Cancellation message response
+    Movile->>Ubook: 3. Notifies cancellation event (id, carrier, phone)
+    Ubook-->>Movile: 4. OK

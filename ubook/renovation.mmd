@@ -1,0 +1,9 @@
+sequenceDiagram
+    participant User
+    participant Movile
+    participant Ubook
+
+    Movile->>Movile: 1. Fires renovation event
+    Movile-->>User: 2. Sends renovation messsage
+    Movile->>Ubook: 2. Notifies renovation event (id, carrier, phone)
+    Ubook-->>Movile: 4. OK
