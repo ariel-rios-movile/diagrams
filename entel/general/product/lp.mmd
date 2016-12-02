@@ -1,0 +1,33 @@
+sequenceDiagram
+    User ->> Varnish: 1. Requests to access the LP URL
+    alt Request from an invalid IP range
+        Varnish ->> User: 2. Redirects to an error page
+    else Request from a valid IP range
+        Varnish ->> Albatross: 2. Allows to request the URL
+        alt MSISDN found in headers
+            Albatross ->> Albatross: 3. Fetchs MSISDN from headers
+        else MSISDN not found in headers
+            Albatross ->> User: 3.a. Redirects to Entel SManager
+            User ->> SManager: 3.b. Access platform as requested
+            SManager ->> SManager: 3.c. Creates session for user
+            SManager ->> User: 3.d. Redirects to callback URL with session ID
+            User ->> Albatross: 3.e. Requests callback handler
+            Albatross ->> SManager: 3.f. Fetchs user information using provided data
+        end
+        Albatross ->> User: 4. Shows LP content.
+        User ->> Albatross: 5. Confirms 1st optin.
+        User ->> Albatross: 6. Confirms 2st optin.
+        Albatross ->> SBS_API: 7. Requests for subscription
+        SBS_API ->> VasProfileWrapper: 8. Requests for subscription
+        VasProfileWrapper ->> SBS_API: 9. Subscription attempt result
+        SBS_API ->> Albatross: 10. Subscription attempt result
+        alt On subscription error
+            Albatross ->> User: 11. Shows error page with error description
+        else On subscription success
+            Albatross ->> User: 11. Shows success page
+            Albatross ->> User: 12. Redirects into product's content
+            SBS_AL ->> Atlas: 13. Sends MT welcome message
+            Atlas ->> EMSG: 14. Sends MT welcome message
+            EMSG ->> User: 15. Delivers MT welcome message
+        end
+    end

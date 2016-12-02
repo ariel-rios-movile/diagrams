@@ -1,0 +1,6 @@
+%% Sequence diagram code
+sequenceDiagram
+    User ->> EntelPD2: 1. Sends PLAYKIDS to 23455
+    EntelPD2 ->> Vendetta: 2. Requests with MO content
+    Vendetta ->> EntelPD2: 3. Responds with MT text (with LP URL)
+    EntelPD2 ->> User: 4. Delivers MT response.

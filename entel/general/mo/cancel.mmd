@@ -1,0 +1,8 @@
+%% Sequence diagram code
+sequenceDiagram
+    User ->> EntelPD2: 1. Sends cancel keyword to LA
+    EntelPD2 ->> Vendetta: 2. Requests with MO content
+    Vendetta ->> EntelVPW: 3. Requests for cancellation on VAS Profile Wrapper (VPW)
+    EntelVPW ->> Vendetta: 4. Responds with operation result.
+    Vendetta ->> EntelPD2: 5. Responds with cancellation text.
+    EntelPD2 ->> User: 6. Delivers MT response from LA.

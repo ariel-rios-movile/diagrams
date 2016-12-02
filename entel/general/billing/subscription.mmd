@@ -1,0 +1,14 @@
+sequenceDiagram
+    User ->> SBS_API: 1. Request for subscription creation.
+    SBS_API ->> VasProfileWrapper: 2. Request for subscription
+    VasProfileWrapper ->> SBS_API: 3. Subscription attempt result
+    SBS_API ->> User: 4. Subscription attempt result
+
+    SBS_AL ->> Atlas: 5. Sends welcome MT message
+    Atlas ->> EMSG: 6. Sends welcome MT message
+
+    VasProfileWrapper ->> Vendetta: 7. Request for subscription event notification (with price information)
+    Vendetta ->> Vendetta: 8. Parses message to a common format
+    Vendetta ->> Queue: 9. Enqueues message
+    Queue ->> SBS_Consumer: 10. Pulls new message
+    SBS_Consumer ->> SBS_Consumer: 11. Parses and stores notification data

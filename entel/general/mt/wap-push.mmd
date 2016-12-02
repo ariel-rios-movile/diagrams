@@ -20,5 +20,4 @@ sequenceDiagram
     Vendetta-->>Entel_Notification: Ok.
     Vendetta->>SBSConsumer: 7. Parses and enqueues a new DR message.
     SBSConsumer->>SBSConsumer: 8. Stores DR message.
-    Vendetta->>?: 9. Fires an event to consolidate MT message status.
-    Note right of Vendetta: This is an unknown. Must talk to Platform team.
+    Note right of SBSConsumer: This is an unknown. Must talk to Platform team.
