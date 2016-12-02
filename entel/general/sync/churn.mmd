@@ -1,0 +1,25 @@
+sequenceDiagram
+    ChurnVasNotificator ->> FTP: 1. Access FTP server
+    FTP -->> ChurnVasNotificator: 2. Ok
+    ChurnVasNotificator ->> FTP: 3. Puts cancellation files for processing on /input
+    FTP -->> ChurnVasNotificator: 4. Ok
+
+    MovileChurnProcessor ->> FTP: 5. Access FTP server
+    FTP -->> MovileChurnProcessor: 6. Ok
+    MovileChurnProcessor ->> FTP: 7. Fetchs input files to process
+    loop For every input file
+        loop For every line in file
+            MovileChurnProcessor ->> SBS_API: 8. Cancels all subscriptions for user
+            SBS_API ->> VasProfileWrapper: 9. Cancels all subscriptions for user 
+            VasProfileWrapper ->> SBS_API: 10. Cancellation result
+            SBS_API ->> MovileChurnProcessor: 11. Cancellation result
+        end
+        MovileChurnProcessor ->> MovileChurnProcessor: 12. Stores results in new processed file
+    end
+    MovileChurnProcessor ->> FTP: 13. Uploads result files on /purga directory
+    FTP -->> MovileChurnProcessor: 6. Ok
+
+    ChurnVasNotificator ->> FTP: 1. Access FTP server
+    FTP -->> ChurnVasNotificator: 2. Ok
+    ChurnVasNotificator ->> FTP: 3. Fetchs processed files from /purga
+    FTP -->> ChurnVasNotificator: 4. Ok
