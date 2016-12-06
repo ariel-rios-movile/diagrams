@@ -1,23 +1,15 @@
 sequenceDiagram
-    participant AtlasAPI
-    participant Dwarf
-    participant AtlasSender
-    participant ActionListener
-    participant Entel_WAPPUSH
-    participant Entel_Notification
-    participant Vendetta
-    participant SBSConsumer
-    participant ?
-
-    ActionListener->>AtlasAPI: 1. Send MT for subscription/renovation event.
-    AtlasAPI-->>ActionListener: Ok.
-    AtlasAPI->>Dwarf: 2. Dequeues message to send.
-    Dwarf->>AtlasSender: 3. Routes message into sender implementation due to filters.
-    AtlasSender->>Entel_WAPPUSH: 4. Sends MT to carrier's API.
-    Entel_WAPPUSH-->>AtlasSender: Ok.
-    AtlasSender->>AtlasSender: 5. Stores partial MT sending result.
-    Entel_Notification->>Vendetta: 6. Delivers async MT result.
-    Vendetta-->>Entel_Notification: Ok.
-    Vendetta->>SBSConsumer: 7. Parses and enqueues a new DR message.
-    SBSConsumer->>SBSConsumer: 8. Stores DR message.
-    Note right of SBSConsumer: This is an unknown. Must talk to Platform team.
+    ActionListener ->> AtlasAPI: 1. Send MT for subscription/renovation event.
+    AtlasAPI -->> ActionListener: Ok.
+    AtlasAPI ->> Dwarf: 2. Enqueues message to send.
+    Dwarf ->> AtlasSender: 3. Routes message into sender implementation due to filters.
+    AtlasSender ->> Entel_WAPPUSH: 4. Sends MT to carrier's API.
+    Entel_WAPPUSH -->> AtlasSender: Ok.
+    AtlasSender ->> Brain: 5. Enqueues (transaction ID, phone number, sent date, text).
+    Note right of AtlasSender: At this step, no MT sending information is stored.
+    Entel_Notification ->> Vendetta: 6. Delivers async MT result.
+    Vendetta -->> Entel_Notification: Ok.
+    Vendetta ->> Brain: 7. Enqueues (DR data, transaction ID)
+    Brain ->> Brain: 8. Matches MT with DR data and builds a new message.
+    Brain ->> Dwarf: 9. Enqueues message to save.
+    Dwarf ->> AtlasSender: 10. Uses implementation just to store message into MTE database.
