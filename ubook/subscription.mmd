@@ -1,12 +1,17 @@
 sequenceDiagram
-    participant User
-    participant Movile
-    participant Ubook
+    alt Through SMS message
+        User ->> Carrier: 1. Sends SMS message for subscription.
+    else Through web landing page
+        User ->> Movile: 1.A. User requests for product subscription
+        Movile ->> Carrier: 1.B. Requests for user subscription
+    end
 
-    User->>Movile: 1. User fires subscription event
-    Movile-->>User: 2. Welcome message response
-    Movile->>Ubook: 3. Notifies subscription event (id, carrier, phone)
-    Ubook-->>Movile: 4. OK
-    Ubook->>Movile: 5. Sends authentication credentials (carrier, phone, user, pass)
-    Movile-->>Ubook: 6. OK
-    Movile->>User: 7. Sends authentication credentials (user, pass) 
+    Carrier ->> Carrier: 2. Charges amount to user.
+    Carrier ->> Movile: 3. Notifies user subscription to product
+    Note right of Carrier: In Personal AR, current configuration for subscription event means billed or enqueued for rebill.
+
+    Movile ->> User: 4. Sends URL to site with phone number as parameter.
+    Movile ->> Ubook: 5. Notifies subscription event (id, carrier, phone)
+
+    Carrier ->> Movile: 6. Notifies billing result.
+    Movile ->> Ubook: 5. Notifies billing event.

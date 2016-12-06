@@ -1,10 +1,9 @@
 sequenceDiagram
-    participant User
-    participant Movile
-    participant Ubook
-
-    User->>Movile: 1. User fires cancellation event
-    Movile->>Movile: 2. Changes subscription status to cancelled
-    Movile-->>User: 3. Cancellation message response
-    Movile->>Ubook: 3. Notifies cancellation event (id, carrier, phone)
-    Ubook-->>Movile: 4. OK
+    alt User cancels subscription
+        User ->> Carrier: 1. User fires cancellation event.
+    else Max rebill tries achieved
+        Carrier ->> Carrier: 1. Cancels subscription for user after many retries.
+    end
+    Carrier ->> Movile: 2. Sends cancellation notification
+    Movile ->> User: 3. Sends cancellation message
+    Movile ->> Ubook: 4. Notifies cancellation event (id, carrier, phone)

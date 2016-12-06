@@ -1,9 +1,7 @@
 sequenceDiagram
-    participant User
-    participant Movile
-    participant Ubook
-
-    Movile->>Movile: 1. Fires renovation event
-    Movile-->>User: 2. Sends renovation messsage
-    Movile->>Ubook: 2. Notifies renovation event (id, carrier, phone)
-    Ubook-->>Movile: 4. OK
+    Carrier ->> Carrier: 1. Fires billing event for renovation.
+    Carrier ->> Movile: 1. Sends billing result for renovation
+    Movile ->> User: 2. Sends renovation messsage
+    Movile ->> Ubook: 2. Notifies renovation event (carrier, phone)
+    Movile ->> Ubook: 2. Notifies billing event (carrier, phone, amount)
+    Note right of Movile: Check: if renew billing result is INSUFFICIENT_CREDIT, it does register the billing amount?
