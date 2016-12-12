@@ -5,11 +5,8 @@ sequenceDiagram
     Dwarf ->> AtlasSender: 3. Routes message into sender implementation due to filters.
     AtlasSender ->> Entel_WAPPUSH: 4. Sends MT to carrier's API.
     Entel_WAPPUSH -->> AtlasSender: Ok.
-    AtlasSender ->> Brain: 5. Enqueues (transaction ID, phone number).
-    AtlasSender ->> AtlasSender: 6. Stores MT information in database.
-    Entel_Notification ->> Vendetta: 7. Delivers async MT result.
+    AtlasSender ->> AtlasSender: 5. Stores partial (current) MT information in database.
+    Entel_Notification ->> Vendetta: 6. Delivers async MT result.
     Vendetta -->> Entel_Notification: Ok.
-    Vendetta ->> Brain: 8. Enqueues (DR data, transaction ID)
-    Brain ->> Brain: 9. Matches MT with DR data and builds a new message.
-    Brain ->> ?: 10. Enqueues message to process.
-    ? ->> ?: 11. Consolidates MT status into MTE database.
+    Vendetta ->> Vendetta: 7. Maps carrier's status ID into Movile's status ID.
+    Vendetta ->> Vendetta: 8. Stores DR data into database.
