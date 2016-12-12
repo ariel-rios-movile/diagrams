@@ -1,9 +1,15 @@
 sequenceDiagram
-    alt User cancels subscription
-        User ->> Carrier: 1. User fires cancellation event.
-    else Max rebill tries achieved
-        Carrier ->> Carrier: 1. Cancels subscription for user after many retries.
+    alt Movile side cancellation
+        alt User cancels subscription
+            User ->> Carrier: 1. User fires cancellation event.
+        else Max rebill tries achieved
+            Carrier ->> Carrier: 1. Cancels subscription for user after many retries.
+        end
+    else Ubook side cancellation
+        Ubook ->> Movile: 1.A. Requests for user cancellation: (phone, carrier)
+        Movile ->> Carrier: 1.B. Cancels subscription for user.
     end
+
     Carrier ->> Movile: 2. Sends cancellation notification
     Movile ->> User: 3. Sends cancellation message
     Movile ->> Ubook: 4. Notifies cancellation event (id, carrier, phone)

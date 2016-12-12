@@ -14,4 +14,7 @@ sequenceDiagram
     Movile ->> Ubook: 5. Notifies subscription event (id, carrier, phone)
 
     Carrier ->> Movile: 6. Notifies billing result.
-    Movile ->> Ubook: 5. Notifies billing event.
+    Movile ->> Ubook: 7. Notifies billing event.
+
+    User ->> Ubook: 8. Access URL for default auth credentials.
+    User ->> Ubook: 9. Changes credentials.
