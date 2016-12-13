@@ -3,7 +3,7 @@
 1. [Subscription](#subscription)
 1. [Renovation](#renovation)
 1. [Cancellation](#cancellation)
-1. [Profile query](#profile)
+1. [Profile](#profile)
 
 ## Subscription
 
@@ -19,4 +19,4 @@
 
 ## Profile
 
-![Profile query](https://raw.githubusercontent.com/ariel-rios-movile/diagrams/master/ubook/profile.mmd.png)
+![Profile](https://raw.githubusercontent.com/ariel-rios-movile/diagrams/master/ubook/profile.mmd.png)
