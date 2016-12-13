@@ -7,16 +7,16 @@
 
 ## Subscription
 
-![Subscription flow](https://raw.githubusercontent.com/ariel-rios-movile/ubook/master/subscription.mmd.png)
+![Subscription flow](https://raw.githubusercontent.com/ariel-rios-movile/diagrams/master/ubook/subscription.mmd.png)
 
 ## Renovation
 
-![Renovation flow](https://raw.githubusercontent.com/ariel-rios-movile/ubook/master/renovation.mmd.png)
+![Renovation flow](https://raw.githubusercontent.com/ariel-rios-movile/diagrams/master/ubook/renovation.mmd.png)
 
 ## Cancellation
 
-![Cancellation flow](https://raw.githubusercontent.com/ariel-rios-movile/ubook/master/cancellation.mmd.png)
+![Cancellation flow](https://raw.githubusercontent.com/ariel-rios-movile/diagrams/master/ubook/cancellation.mmd.png)
 
 ## Profile
 
-![Profile query](https://raw.githubusercontent.com/ariel-rios-movile/ubook/master/profile.mmd.png)
+![Profile query](https://raw.githubusercontent.com/ariel-rios-movile/diagrams/master/ubook/profile.mmd.png)
